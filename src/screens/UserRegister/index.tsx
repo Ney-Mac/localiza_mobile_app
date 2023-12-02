@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+
 import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from '../../stacks/RootStack';
+import { RegisterStackTypes } from '../Register';
 
 import {
     Container,
@@ -21,7 +23,8 @@ import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
 
 export default (): JSX.Element => {
-    const navigation = useNavigation<StackTypes>();
+    const navigationRoot = useNavigation<StackTypes>();
+    const navigationRegister = useNavigation<RegisterStackTypes>();
 
     type InputType = {
         value: string | number;
@@ -31,27 +34,29 @@ export default (): JSX.Element => {
 
     const [name, setName] = useState<InputType>({ value: '', error: '' });
     const [email, setEmail] = useState<InputType>({ value: '', error: '' });
-    const [password, setPassword] = useState<InputType>({ value: '', error: '' });
     const [phone, setPhone] = useState<InputType>({ value: '', error: '', phoneCode: '' });
 
     const onLoginPress = () => {
+        const nameError = (name.value) ? '' : 'Preencha este campo';
         const emailError = (email.value) ? '' : 'Preencha este campo';
-        const passwordError = (password.value) ? '' : 'Preencha este campo';
+        const phoneError = (phone.value) ? 
+            (phone.phoneCode)? '' : 'Escolha o código do país' 
+            : 'Preencha este campo';
+        //
 
-        if (emailError || passwordError) {
+        /*if (nameError || emailError || phoneError) {
+            setName({ ...name, error: nameError });
             setEmail({ ...email, error: emailError });
-            setPassword({ ...password, error: passwordError });
+            setPhone({ ...phone, error: phoneError });
             return;
-        }
+        }*/
 
-        console.log('Logar');
+        navigationRegister.navigate('DefinePassword');
     }
 
     const handlePhoneCode = (code: string) => {
         setPhone({ ...phone, phoneCode: code });
     }
-
-    useEffect(() => { console.log(phone) }, [phone])
 
     return (
         <Container>
@@ -92,13 +97,13 @@ export default (): JSX.Element => {
             </InputArea>
 
             <Button
-                text='Entrar'
+                text='Continuar'
                 onPress={onLoginPress}
             />
 
             <NavigationArea>
                 <NavigateToLoginText>Já tem uma conta? </NavigateToLoginText>
-                <NavigateToLoginButton onPress={() => { navigation.navigate('Login') }}>
+                <NavigateToLoginButton onPress={() => { navigationRoot.navigate('Login') }}>
                     <NavigateToLoginButtonText>Entrar</NavigateToLoginButtonText>
                 </NavigateToLoginButton>
             </NavigationArea>

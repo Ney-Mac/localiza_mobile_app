@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { StyleSheet } from 'react-native';
 
+import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from '../../stacks/RootStack';
 
@@ -18,10 +19,20 @@ import {
 
 import UserRegister from '../UserRegister';
 import BusinessRegister from '../BusinessRegister';
+import DefinePassword from '../DefinePassword';
 
 import BackButton from '../../components/BackButton';
 
 import { theme } from '../../themes/theme';
+
+type RegisterStackParamList = {
+    UserRegister: undefined;
+    BusinessRegister: undefined;
+    DefinePassword: undefined;
+}
+
+const RegisterStack = createNativeStackNavigator<RegisterStackParamList>();
+export type RegisterStackTypes = NativeStackNavigationProp<RegisterStackParamList>;
 
 export default () => {
     const navigation = useNavigation<StackTypes>();
@@ -56,11 +67,13 @@ export default () => {
             </SwappButtonContainer>
 
             <ScreenContainer>
-                {
-                    activePage === 0 ?
-                    <UserRegister />
-                    : <BusinessRegister />
-                }
+                <RegisterStack.Navigator screenOptions={{ headerShown: false }}>
+                    {activePage === 0 ?
+                        <RegisterStack.Screen name='UserRegister' component={UserRegister} options={{ animation: 'none' }} />
+                        : <RegisterStack.Screen name='BusinessRegister' component={BusinessRegister} options={{ animation: 'none' }} />
+                    }
+                    <RegisterStack.Screen name='DefinePassword' component={DefinePassword} options={{ animation: 'none' }} />
+                </RegisterStack.Navigator>
             </ScreenContainer>
         </Container>
     )

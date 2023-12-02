@@ -5,6 +5,7 @@ import { theme } from "../../themes/theme";
 export const Container = styled.KeyboardAvoidingView`
     flex: 1;
     align-items: center;
+    padding: 0 16px;
     background-color: ${theme.colors.surface};
 `;
 

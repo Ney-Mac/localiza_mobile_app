@@ -1,4 +1,4 @@
-import { NativeStackNavigationProp, NativeStackScreenProps, createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NativeStackNavigationProp, createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Preload from "../screens/Preload";
 import Login from "../screens/Login";
@@ -6,7 +6,7 @@ import Register from "../screens/Register";
 import Recovery from "../screens/Recovery";
 import Welcome from "../screens/Welcome";
 import Verification from "../screens/Verification";
-import DefinePassword from "../screens/DefinePassword";
+import DefineNewPassword from "../screens/DefineNewPassword";
 
 type RootStackParamList = {
     Preload: undefined;
@@ -16,7 +16,7 @@ type RootStackParamList = {
 
     Recovery: undefined;
     Verification: undefined;
-    DefinePassword: undefined;
+    DefineNewPassword: undefined;
     
     Welcome: undefined;
 }
@@ -38,6 +38,6 @@ export default () => (
         <RootStack.Screen name="Recovery" component={Recovery} />
         <RootStack.Screen name="Welcome" component={Welcome} />
         <RootStack.Screen name="Verification" component={Verification} />
-        <RootStack.Screen name="DefinePassword" component={DefinePassword} />
+        <RootStack.Screen name="DefineNewPassword" component={DefineNewPassword} />
     </RootStack.Navigator>
 )

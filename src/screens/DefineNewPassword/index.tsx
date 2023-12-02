@@ -1,12 +1,11 @@
-import { useState, useEffect } from 'react';
-import { BackHandler } from 'react-native';
-
+import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from '../../stacks/RootStack';
-import { RegisterStackTypes } from '../Register';
 
 import {
     Container,
+
+    NavigationArea,
 
     HeaderArea,
     HeaderTitle,
@@ -17,6 +16,8 @@ import {
 
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
+import BackButton from '../../components/BackButton';
+import SuccessModal from '../../components/SuccessModal';
 
 type InputValue = {
     value: string | number;
@@ -24,11 +25,12 @@ type InputValue = {
 }
 
 export default (): JSX.Element => {
-    const navigationRoot = useNavigation<StackTypes>();
-    const navigationRegister = useNavigation<RegisterStackTypes>();
+    const navigation = useNavigation<StackTypes>();
 
     const [password, setPassword] = useState<InputValue>({ value: '', error: '' });
     const [confirmPassword, setConfirmPassword] = useState<InputValue>({ value: '', error: '' });
+
+    const [showModal, setShowModal] = useState<boolean>(false);
 
     const onRecoveryPress = () => {
         const passwordError = (password.value) ? '' : 'Preencha este campo';
@@ -39,32 +41,27 @@ export default (): JSX.Element => {
             setConfirmPassword({ ...confirmPassword, error: confirmPasswordError });
             return;
         }*/
-
         
-    }
-
-    useEffect(() => {
-        const backHandler = BackHandler.addEventListener('hardwareBackPress', backPressHandler);
-        return backHandler.remove();
-    }, []);
-
-    const backPressHandler = () => {
-        navigationRegister.goBack();
-        return true;
+        setShowModal(true);
     }
 
     return (
         <Container behavior='padding'>
+
+            <NavigationArea>
+                <BackButton goBack={() => { navigation.goBack() }} />
+            </NavigationArea>
+
             <HeaderArea>
-                <HeaderTitle>Definir Palavra-Passe</HeaderTitle>
+                <HeaderTitle>Definir nova Palavra-Passe</HeaderTitle>
                 <HeaderText>
-                    Preenche os dados para cria a sua conta e ter acesso as informações.
+                    Entre com sua nova palavra-Passe
                 </HeaderText>
             </HeaderArea>
 
             <InputArea>
                 <TextInput
-                    label="Palavra-Passe"
+                    label="Nova Palavra-Passe"
                     placeholder="*************"
                     value={password.value}
                     errorText={password.error}
@@ -81,8 +78,17 @@ export default (): JSX.Element => {
                 />
             </InputArea>
 
+            <SuccessModal 
+                visible={showModal} 
+                setVisible={setShowModal} 
+                headerText='Palavra-Passe foi mudada com sucesso'
+                text='Clica no botão entrar, para teres acesso a sua conta'
+                buttonText='Entrar'
+                onButtonPress={() => { console.log('Modal') }}
+            />
+
             <Button
-                text='Criar conta'
+                text='Continuar'
                 onPress={onRecoveryPress}
             />
         </Container>
