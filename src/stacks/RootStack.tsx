@@ -27,7 +27,7 @@ export type StackTypes = NativeStackNavigationProp<RootStackParamList>;
 
 export default () => (
     <RootStack.Navigator
-        initialRouteName="Register"
+        initialRouteName="Preload"
         screenOptions={{
             headerShown: false
         }}
