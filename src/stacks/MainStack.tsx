@@ -1,11 +1,17 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
-const Drawer = createDrawerNavigator();
+import Home from "../screens/Home";
+
+export type MainStackParamList = {
+    Home: undefined;
+}
+
+const MainStack = createDrawerNavigator<MainStackParamList>();
 
 export default (): JSX.Element => {
     return (
-        <Drawer.Navigator>
-            
-        </Drawer.Navigator>
+        <MainStack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+            <MainStack.Screen name="Home" component={Home} />
+        </MainStack.Navigator>
     )
 }

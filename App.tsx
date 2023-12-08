@@ -1,7 +1,7 @@
+import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { PaperProvider } from 'react-native-paper';
 import { theme } from "./src/themes/theme";
-
 import RootStack from "./src/stacks/RootStack";
 
 export default function App(): JSX.Element {

@@ -9,6 +9,7 @@ import VisiblityIcon from '../assets/eye/visibility.svg';
 import VisiblityOffIcon from '../assets/eye/visibility_off.svg';
 import ExpandLessIcon from '../assets/chevron/expand_less.svg';
 import ExpandMoreIcon from '../assets/chevron/expand_more.svg';
+import LocationIcon from '../assets/location/location.svg';
 
 const Container = styled.View`
     width: 100%;
@@ -91,9 +92,24 @@ const ErrorText = styled(Text)`
 const Label = styled(Text)`
     font-size: 14px;
     line-height: 16.94px;
+    color: ${theme.colors.black.primary};
+    font-family: ${theme.font.regular};
 `;
 
-export default ({ label, placeholder, value, errorText, onChangeText, isPassword, phoneCode, setSelectedItem, ...props }: any) => {
+export default (Props: any) => {
+    const {
+        label,
+        placeholder,
+        value,
+        errorText,
+        onChangeText,
+        isPassword,
+        phoneCode,
+        setSelectedItem,
+        isLocation,
+        ...props
+    } = Props;
+
     const [isActive, setIsActive] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
@@ -114,7 +130,7 @@ export default ({ label, placeholder, value, errorText, onChangeText, isPassword
     }
 
     useEffect(() => {
-        if(phoneCode){
+        if (phoneCode) {
             onSelect(selected);
         }
     }, [])
@@ -180,6 +196,11 @@ export default ({ label, placeholder, value, errorText, onChangeText, isPassword
                         />
                     }
                 </IconButton>}
+                {isLocation && <LocationIcon
+                    height={24}
+                    width={24}
+                    fill={isActive ? theme.colors.secondary : theme.colors.black.fourth}
+                />}
             </InputArea>
             {errorText && <ErrorText>
                 {errorText}

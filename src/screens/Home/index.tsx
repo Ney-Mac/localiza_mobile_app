@@ -1,5 +1,12 @@
 
+import {
+    Container,
+} from './styles';
 
-export default () => {
-    
+export default (): JSX.Element => {
+    return (
+        <Container>
+
+        </Container>
+    )
 }

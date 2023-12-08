@@ -54,7 +54,7 @@ export default (): JSX.Element => {
             return;
         }*/
 
-        navigationRegister.navigate('DefinePassword');
+        navigationRegister.navigate('AboutBusiness');
     }
 
     const handlePhoneCode = (code: string) => {

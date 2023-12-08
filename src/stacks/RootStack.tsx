@@ -7,6 +7,7 @@ import Recovery from "../screens/Recovery";
 import Welcome from "../screens/Welcome";
 import Verification from "../screens/Verification";
 import DefineNewPassword from "../screens/DefineNewPassword";
+import MainStack from "./MainStack";
 
 type RootStackParamList = {
     Preload: undefined;
@@ -19,6 +20,8 @@ type RootStackParamList = {
     DefineNewPassword: undefined;
     
     Welcome: undefined;
+
+    MainStack: { screen: string };
 }
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
@@ -27,7 +30,7 @@ export type StackTypes = NativeStackNavigationProp<RootStackParamList>;
 
 export default () => (
     <RootStack.Navigator
-        initialRouteName="Preload"
+        initialRouteName="Register"
         screenOptions={{
             headerShown: false
         }}
@@ -39,5 +42,7 @@ export default () => (
         <RootStack.Screen name="Welcome" component={Welcome} />
         <RootStack.Screen name="Verification" component={Verification} />
         <RootStack.Screen name="DefineNewPassword" component={DefineNewPassword} />
+        
+        <RootStack.Screen name="MainStack" component={MainStack} />
     </RootStack.Navigator>
 )

@@ -20,6 +20,7 @@ import {
 import UserRegister from '../UserRegister';
 import BusinessRegister from '../BusinessRegister';
 import DefinePassword from '../DefinePassword';
+import AboutBusiness from '../AboutBusiness';
 
 import BackButton from '../../components/BackButton';
 
@@ -29,6 +30,7 @@ type RegisterStackParamList = {
     UserRegister: undefined;
     BusinessRegister: undefined;
     DefinePassword: undefined;
+    AboutBusiness: undefined;
 }
 
 const RegisterStack = createNativeStackNavigator<RegisterStackParamList>();
@@ -37,7 +39,7 @@ export type RegisterStackTypes = NativeStackNavigationProp<RegisterStackParamLis
 export default () => {
     const navigation = useNavigation<StackTypes>();
 
-    const [activePage, setActivePage] = useState<number>(0);
+    const [activePage, setActivePage] = useState<number>(1);
 
     return (
         <Container behavior='padding'>
@@ -67,10 +69,13 @@ export default () => {
             </SwappButtonContainer>
 
             <ScreenContainer>
-                <RegisterStack.Navigator screenOptions={{ headerShown: false }}>
+                <RegisterStack.Navigator initialRouteName='AboutBusiness' screenOptions={{ headerShown: false }}>
                     {activePage === 0 ?
                         <RegisterStack.Screen name='UserRegister' component={UserRegister} options={{ animation: 'none' }} />
-                        : <RegisterStack.Screen name='BusinessRegister' component={BusinessRegister} options={{ animation: 'none' }} />
+                        : <>
+                            <RegisterStack.Screen name='BusinessRegister' component={BusinessRegister} options={{ animation: 'none' }} />
+                            <RegisterStack.Screen name="AboutBusiness" component={AboutBusiness} options={{ animation: 'none' }} />
+                        </>
                     }
                     <RegisterStack.Screen name='DefinePassword' component={DefinePassword} options={{ animation: 'none' }} />
                 </RegisterStack.Navigator>

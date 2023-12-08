@@ -28,6 +28,10 @@ export default (): JSX.Element => {
 
     const [isChecked, setIsChecked] = useState(false);
 
+    const onContinuePress = () => {
+        navigation.navigate('MainStack', { screen: 'Home' });
+    }
+
     return (
         <Container>
             <LocalizaLogo source={LogoIcon} />
@@ -77,7 +81,7 @@ export default (): JSX.Element => {
             <ButtonArea>
                 <Button
                     text="Continuar"
-                    onPress={() => { }}
+                    onPress={onContinuePress}
                 />
             </ButtonArea>
         </Container>
